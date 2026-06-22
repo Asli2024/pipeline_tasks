@@ -2,18 +2,19 @@
 
 A simple CI/CD implementation with a Python application, automated testing, and Docker deployment.
 
-## 📚 What's Included
+##  What's Included
 
 ### Task 1: Continuous Integration (CI Pipeline)
-Automatically runs tests on every push to main branch.
+Automatically runs tests and linting checks on every push to main branch.
 
 **Workflow:** `.github/workflows/ci-pipeline.yml`
 
 **Steps:**
-- ✅ Checkout code
-- ✅ Set up Python 3.12
-- ✅ Install dependencies (pytest)
-- ✅ Run unit tests
+-  Checkout code
+-  Set up Python 3.12
+-  Install dependencies (pytest, pylint)
+-  Run linting checks
+-  Run unit tests
 
 ### Task 2: Continuous Deployment (CD Pipeline)
 Automatically builds and pushes Docker image to Docker Hub on every push to main.
@@ -21,12 +22,12 @@ Automatically builds and pushes Docker image to Docker Hub on every push to main
 **Workflow:** `.github/workflows/cd-pipeline.yml`
 
 **Steps:**
-- ✅ Checkout code
-- ✅ Login to Docker Hub
-- ✅ Build Docker image
-- ✅ Push to Docker Hub with commit SHA tag
+-  Checkout code
+-  Login to Docker Hub
+-  Build Docker image
+-  Push to Docker Hub with commit SHA tag
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### Run Locally
 
@@ -49,27 +50,29 @@ python app.py
 ### Build Docker Image
 
 ```bash
-docker build -t pipeline-app:latest .
-docker run pipeline-app:latest
+docker build -t pipeline-app .
+docker run pipeline-app
 # Output: Hello, World!
 ```
 
-## 📂 Project Structure
+Note: The CD pipeline tags the image with the commit SHA (e.g., pipeline-app:abc123def456) when pushing to Docker Hub.
+
+### Project Structure
 
 ```
 pipeline_tasks/
-├── .github/
-│   └── workflows/
-│       ├── ci-pipeline.yml      # Task 1: CI Pipeline (runs tests)
-│       └── cd-pipeline.yml      # Task 2: CD Pipeline (builds & pushes)
-├── app.py                       # Simple Python app (prints "Hello, World!")
-├── test_app.py                  # Unit tests
-├── requirements.txt             # Python dependencies (pytest, pytest-cov)
-├── Dockerfile                   # Docker container configuration
-└── README.md                    # This file
+  .github/
+    workflows/
+      ci-pipeline.yml
+      cd-pipeline.yml
+  app.py
+  test_app.py
+  requirements.txt
+  Dockerfile
+  README.md
 ```
 
-## 🐍 Application
+##  Application
 
 Simple Python application:
 
@@ -93,16 +96,21 @@ Run tests:
 pytest test_app.py -v
 ```
 
-## 🐳 Docker
+Run linting:
+```bash
+pylint app.py
+```
+
+##  Docker
 
 ### Build Image
 ```bash
-docker build -t pipeline-app:latest .
+docker build -t pipeline-app .
 ```
 
 ### Run Container
 ```bash
-docker run pipeline-app:latest
+docker run pipeline-app
 ```
 
 ### Image Details
@@ -110,7 +118,7 @@ docker run pipeline-app:latest
 - **Port:** Not exposed (console app)
 - **CMD:** Runs `python app.py`
 
-## 🔄 GitHub Actions Workflows
+##  GitHub Actions Workflows
 
 ### CI Pipeline Workflow
 
@@ -122,8 +130,9 @@ docker run pipeline-app:latest
 - Checks out your code
 - Installs Python 3.12
 - Installs dependencies from requirements.txt
+- Runs pylint linting checks on app.py
 - Runs pytest tests
-- Passes if all tests succeed
+- Passes if all linting and tests succeed
 
 ### CD Pipeline Workflow
 
@@ -143,7 +152,7 @@ docker run pipeline-app:latest
 - `DOCKERHUB_USERNAME` - Your Docker Hub username
 - `DOCKERHUB_TOKEN` - Your Docker Hub access token
 
-## 🔐 Setup Instructions
+##  Setup Instructions
 
 ### 1. Create Docker Hub Access Token
 
@@ -178,42 +187,44 @@ git push origin main
 
 Go to **GitHub Actions** tab to watch the workflows run.
 
-## 🎯 How It Works
+##  How It Works
 
 1. **You push to main** → GitHub detects push event
 2. **CI Pipeline runs** → Tests your code, fails if tests don't pass
 3. **CD Pipeline runs** → Builds Docker image and pushes to Docker Hub
 4. **Your image is published** → Available at `docker.io/your-username/pipeline-app:commit-sha`
 
-## 📊 Pipeline Status
+##  Pipeline Status
 
 - View workflows: **GitHub → Actions tab**
 - View pushed images: **Docker Hub → Your account**
 - Run tests locally: `pytest test_app.py -v`
 
-## 🔧 Technologies
+##  Technologies
 
 - **Language:** Python 3.12
 - **Testing:** pytest
+- **Linting:** pylint
 - **Containerization:** Docker
 - **CI/CD:** GitHub Actions
 - **Registry:** Docker Hub
 
-## 📖 Learn More
+##  Learn More
 
 - [GitHub Actions Documentation](https://docs.github.com/en/actions)
 - [Docker Documentation](https://docs.docker.com/)
 - [pytest Documentation](https://docs.pytest.org/)
 - [Docker Hub](https://hub.docker.com/)
 
-## ✅ Features
+##  Features
 
-✅ Automated testing on every push  
-✅ Automatic Docker image builds  
-✅ Push to Docker Hub  
-✅ Simple Python application  
-✅ Unit test coverage  
-✅ GitHub Actions integration  
+Automated testing on every push
+Code linting checks
+Automatic Docker image builds
+Push to Docker Hub
+Simple Python application
+Unit test coverage
+GitHub Actions integration  
 
 ---
 
